@@ -18,6 +18,10 @@ function mapToProduct(dto: ProductResponseDto): Product {
     imageUrl = primary ? primary.imageUrl : dto.images[0].imageUrl;
   }
 
+  if (imageUrl && !imageUrl.startsWith('/') && !imageUrl.startsWith('http') && !imageUrl.startsWith('data:')) {
+    imageUrl = `/${imageUrl}`;
+  }
+
   return {
     id: dto.id,
     name: dto.name,

@@ -14,21 +14,37 @@ export default function HomePage() {
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [sortBy, setSortBy] = useState<string>('rating');
 
+  const fetchProducts = React.useCallback(async () => {
+    setIsLoading(true);
+    setErrorMessage(null);
+    try {
+      const data = await apiService.getProducts();
+      setProducts(data);
+    } catch (err: unknown) {
+      console.error('Error fetching products', err);
+      const msg = err instanceof Error ? err.message : 'Failed to load products.';
+      setErrorMessage(msg);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
   useEffect(() => {
     let isMounted = true;
-
     apiService
       .getProducts()
       .then((data) => {
-        if (!isMounted) return;
-        setProducts(data);
-        setIsLoading(false);
+        if (isMounted) setProducts(data);
       })
       .catch((err: unknown) => {
         console.error('Error fetching products', err);
-        if (!isMounted) return;
-        setErrorMessage('Failed to load products. Please check the network connection.');
-        setIsLoading(false);
+        if (isMounted) {
+          const msg = err instanceof Error ? err.message : 'Failed to load products.';
+          setErrorMessage(msg);
+        }
+      })
+      .finally(() => {
+        if (isMounted) setIsLoading(false);
       });
 
     return () => {
@@ -212,8 +228,15 @@ export default function HomePage() {
 
         {/* Error State */}
         {errorMessage && (
-          <div className="error-state">
-            <p className="error-msg">{errorMessage}</p>
+          <div className="error-state" style={{ textAlign: 'center', margin: '40px 0' }}>
+            <p className="error-msg" style={{ color: '#ef4444', marginBottom: 15 }}>{errorMessage}</p>
+            <button
+              onClick={() => fetchProducts()}
+              className="btn btn-reset"
+              style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}
+            >
+              🔄 Retry Loading Collections
+            </button>
           </div>
         )}
 

@@ -6,10 +6,17 @@ import { usePathname } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import { useTheme } from '@/context/ThemeContext';
 
+const emptySubscribe = () => () => {};
+
 export default function Navbar() {
   const pathname = usePathname();
   const { isAdmin, logout } = useAuth();
   const { isDarkMode, toggleTheme } = useTheme();
+  const mounted = React.useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  );
 
   return (
     <header className="app-header">
@@ -38,7 +45,7 @@ export default function Navbar() {
             Contact
           </Link>
 
-          {isAdmin && (
+          {mounted && isAdmin && (
             <>
               <Link
                 href="/register"
@@ -67,7 +74,11 @@ export default function Navbar() {
             className="theme-toggle"
             aria-label="Toggle light/dark theme"
           >
-            {isDarkMode ? <span>☀️ Light</span> : <span>🌙 Dark</span>}
+            {mounted ? (
+              isDarkMode ? <span>☀️ Light</span> : <span>🌙 Dark</span>
+            ) : (
+              <span>🌙 Dark</span>
+            )}
           </button>
         </nav>
       </div>

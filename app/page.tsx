@@ -57,6 +57,14 @@ export default function HomePage() {
     return ['All', ...Array.from(new Set(list))];
   }, [products]);
 
+  const categoryCounts = useMemo(() => {
+    const counts: Record<string, number> = { All: products.length };
+    products.forEach((p) => {
+      counts[p.category] = (counts[p.category] || 0) + 1;
+    });
+    return counts;
+  }, [products]);
+
   const filteredAndSortedProducts = useMemo(() => {
     let items = [...products];
 
@@ -86,16 +94,6 @@ export default function HomePage() {
     return items;
   }, [products, searchQuery, selectedCategory, sortBy]);
 
-  const getTagline = (cat: string) => {
-    const lower = cat.toLowerCase();
-    if (cat === 'All') return 'Explore our full range of handcrafted jewelry';
-    if (lower.includes('ring')) return 'Bold. Dark. Fearless. Designed for leaders.';
-    if (lower.includes('neck') || lower.includes('pendant')) return 'Carry your story. Wear your symbol.';
-    if (lower.includes('brace') || lower.includes('chain')) return 'Stronger together. Timeless links of style.';
-    if (lower.includes('ear')) return 'Subtle or bold. Make your statement.';
-    return 'Curated custom masterworks.';
-  };
-
   return (
     <>
       <section className="home-banner">
@@ -114,48 +112,30 @@ export default function HomePage() {
       </section>
 
       <div className="catalog-container" id="catalog-section">
-        {/* Category Selection Cards Grid */}
-        <section className="collections-section">
-          <div className="category-cards-grid">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                type="button"
-                className={`category-card-chip ${selectedCategory === cat ? 'active' : ''}`}
-                onClick={() => setSelectedCategory(cat)}
-                data-category={cat}
-              >
-                <span className="card-badge">
-                  {cat === 'All' ? 'EXPLORE ALL' : `${cat.toUpperCase()}S`}
-                </span>
-
-                <div className="card-details">
-                  <h3 className="card-title">
-                    {cat === 'All' ? 'ALL CREATIONS' : `${cat.toUpperCase()} COLLECTION`}
-                  </h3>
-                  <p className="card-tagline">{getTagline(cat)}</p>
-                  <span className="explore-link">
-                    EXPLORE COLLECTION
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="12"
-                      height="12"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                      className="arrow"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M14 5l7 7m0 0l-7 7m7-7H3"
-                      />
-                    </svg>
-                  </span>
-                </div>
-              </button>
-            ))}
+        {/* Category Tab Buttons Navigation */}
+        <section className="category-tabs-section">
+          <div className="category-tabs-wrapper">
+            <div className="category-tabs-nav" role="tablist" aria-label="Product Categories">
+              {categories.map((cat) => {
+                const isActive = selectedCategory === cat;
+                const count = categoryCounts[cat] || 0;
+                return (
+                  <button
+                    key={cat}
+                    type="button"
+                    role="tab"
+                    aria-selected={isActive}
+                    className={`category-tab-btn ${isActive ? 'active' : ''}`}
+                    onClick={() => setSelectedCategory(cat)}
+                  >
+                    <span className="tab-label">
+                      {cat === 'All' ? 'All Creations' : cat}
+                    </span>
+                    <span className="tab-count">{count}</span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </section>
 

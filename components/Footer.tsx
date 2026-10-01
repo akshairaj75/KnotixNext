@@ -15,10 +15,33 @@ export default function Footer() {
           <p>Crafting timeless elegance and premium luxury jewelry for your most cherished moments.</p>
 
           <div className="social-links">
-            <a href="https://www.instagram.com/knotix_official" onClick={(e) => e.preventDefault()} aria-label="Instagram">IG</a>
-            {/* <a href="#" onClick={(e) => e.preventDefault()} aria-label="Facebook">FB</a>
-            <a href="#" onClick={(e) => e.preventDefault()} aria-label="Pinterest">PI</a>
-            <a href="#" onClick={(e) => e.preventDefault()} aria-label="TikTok">TT</a> */}
+            <a
+              href={contact.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="social-link"
+              aria-label="Follow Knotix on Instagram"
+              title="Follow Knotix on Instagram"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.75"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                width="18"
+                height="18"
+                aria-hidden="true"
+                className="social-svg-icon"
+              >
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+              </svg>
+              <span>{contact.instagramHandle}</span>
+            </a>
           </div>
         </div>
 
@@ -34,30 +57,15 @@ export default function Footer() {
         </div>
 
         <div className="footer-contact">
-          <h4>Contact Us</h4>
+          <h4>Studio Concierge</h4>
           <p>Email: {contact.email}</p>
           <p>Phone: {contact.phone}</p>
-        </div>
-
-        <div className="footer-newsletter">
-          <h4>NEWSLETTER</h4>
-          <p>Subscribe and get 10% off your first order.</p>
-          <form className="newsletter-form" onSubmit={(e) => e.preventDefault()}>
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="newsletter-input"
-              aria-label="Newsletter email"
-            />
-            <button type="submit" className="newsletter-btn" aria-label="Subscribe">
-              &rarr;
-            </button>
-          </form>
+          <p>Hours: {contact.supportHours.timings}</p>
         </div>
       </div>
 
       <div className="footer-bottom">
-        <p>&copy; 2026 KNOTIX Jewels. All rights reserved. Elegant designs by Antigravity.</p>
+        <p>&copy; 2026 KNOTIX Jewels. All rights reserved.</p>
         <div className="footer-bottom-links">
           <Link href="/privacy-policy">Privacy Policy</Link>
           <Link href="/terms-conditions">Terms & Conditions</Link>

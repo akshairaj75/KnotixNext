@@ -87,6 +87,8 @@ export interface BusinessContact {
   whatsapp: string;
   whatsappLink: string;
   grievanceEmail: string;
+  instagram: string;
+  instagramHandle: string;
   supportHours: {
     days: string;
     timings: string;

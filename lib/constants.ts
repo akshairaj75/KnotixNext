@@ -17,6 +17,8 @@ export const BUSINESS_CONTACT: BusinessContact = {
   whatsapp: '+9197448 02218',
   whatsappLink: 'https://wa.me/919744802218',
   grievanceEmail: 'grievance@knotixcrafts.com',
+  instagram: 'https://www.instagram.com/knotix_official',
+  instagramHandle: '@knotix_official',
   supportHours: {
     days: 'Monday – Saturday',
     timings: '9:00 AM – 6:00 PM (IST)'

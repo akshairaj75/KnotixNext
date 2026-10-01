@@ -8,9 +8,9 @@ export const metadata = {
 export default function AboutPage() {
   return (
     <div className="about-container">
-      <div style={{ marginBottom: 30 }}>
-        <Link href="/" className="btn-back">
-          <span className="arrow">←</span> Back to Catalog
+      <div className="nav-back">
+        <Link href="/" className="back-link">
+          <span className="arrow">&larr;</span> Back to Catalog
         </Link>
       </div>
 
@@ -22,143 +22,135 @@ export default function AboutPage() {
         </p>
       </header>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 60 }}>
+      <div className="about-content">
         {/* Intro Card */}
-        <div className="form-card" style={{ textAlign: 'center', background: 'radial-gradient(circle at 50% 50%, #1a1510 0%, var(--card-bg) 100%)' }}>
-          <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.8rem', marginBottom: 15, color: 'var(--color-gold)' }}>
-            Our Vision
-          </h2>
-          <p style={{ maxWidth: 700, margin: '0 auto', fontSize: '0.95rem', lineHeight: 1.8, color: 'var(--color-muted)' }}>
-            Founded in 2026, Knotix Crafts was born out of a desire to redefine fine jewelry.
-            We believe that jewelry is not merely an accessory, but a wearable expression of identity,
-            a keeper of memories, and a legacy of design. Our creations fuse traditional luxury
-            aesthetics with a contemporary edge.
-          </p>
+        <div className="intro-card">
+          <div className="intro-overlay"></div>
+          <div className="intro-text-wrapper">
+            <h2>Our Vision</h2>
+            <p className="intro-text">
+              Founded in 2026, Knotix Crafts was born out of a desire to redefine fine jewelry.
+              We believe that jewelry is not merely an accessory, but a wearable expression of identity,
+              a keeper of memories, and a legacy of design. Our creations fuse traditional luxury
+              aesthetics with a contemporary edge.
+            </p>
+          </div>
         </div>
 
         {/* History / Story Section */}
-        <div className="form-card" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 40 }}>
-          <div>
-            <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.5rem', marginBottom: 15 }}>
-              The Knotix Difference
-            </h2>
-            <p style={{ fontSize: '0.85rem', color: 'var(--color-muted)', lineHeight: 1.7, marginBottom: 15 }}>
-              Each piece in our collection is carefully conceptualized and meticulously refined.
-              We draw inspiration from geometric patterns in nature, architectural symmetries,
-              and the fluid grace of hand-woven knots. By bringing together legacy techniques and
-              advanced manufacturing precision, we ensure that every bracelet, ring, and necklace
-              exudes unparalleled elegance.
-            </p>
-            <p style={{ fontSize: '0.85rem', color: 'var(--color-muted)', lineHeight: 1.7 }}>
-              Our signature craft combines raw structural beauty with comfortable everyday wear.
-              Whether crafted from rich 18k yellow gold, platinum, or adorned with ethically-sourced diamonds,
-              each piece is balanced, polished, and perfected under strict quality control.
-            </p>
+        <section className="about-section story-section">
+          <div className="section-layout">
+            <div className="text-content">
+              <h2>The Knotix Difference</h2>
+              <p>
+                Each piece in our collection is carefully conceptualized and meticulously refined.
+                We draw inspiration from geometric patterns in nature, architectural symmetries,
+                and the fluid grace of hand-woven knots. By bringing together legacy techniques and
+                advanced manufacturing precision, we ensure that every bracelet, ring, and necklace
+                exudes unparalleled elegance.
+              </p>
+              <p>
+                Our signature craft combines raw structural beauty with comfortable everyday wear.
+                Whether crafted from rich 18k yellow gold, platinum, or adorned with ethically-sourced diamonds,
+                each piece is balanced, polished, and perfected under strict quality control.
+              </p>
+            </div>
+            <div className="feature-highlight">
+              <div className="badge">Signature Craft</div>
+              <h3>Curated & Crafted in Our Dedicated Workshop</h3>
+              <p>
+                Every single diamond is hand-set and every metal link is inspected, making each design unique to its wearer.
+              </p>
+            </div>
           </div>
-          <div style={{ padding: 30, border: '1px solid var(--border-color)', background: 'var(--card-bg)', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-            <span style={{ fontSize: '0.7rem', color: 'var(--color-gold)', textTransform: 'uppercase', letterSpacing: '0.2em', marginBottom: 10 }}>
-              Signature Craft
-            </span>
-            <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.2rem', marginBottom: 10 }}>
-              Curated & Crafted in Our Dedicated Workshop
-            </h3>
-            <p style={{ fontSize: '0.8rem', color: 'var(--color-muted)', lineHeight: 1.6 }}>
-              Every single diamond is hand-set and every metal link is inspected, making each design unique to its wearer.
-            </p>
-          </div>
-        </div>
+        </section>
 
         {/* Core Values Section */}
-        <div>
-          <div style={{ textAlign: 'center', marginBottom: 30 }}>
-            <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.8rem', marginBottom: 8 }}>
-              Our Founding Principles
-            </h2>
-            <p style={{ fontSize: '0.85rem', color: 'var(--color-muted)' }}>
-              The core values that guide our artisan studio every single day.
-            </p>
+        <section className="about-section values-section">
+          <div className="section-header-center">
+            <h2>Our Founding Principles</h2>
+            <p>The core values that guide our artisan studio every single day.</p>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 20 }}>
-            <div className="form-card" style={{ textAlign: 'center', padding: 30 }}>
-              <div style={{ fontSize: '2rem', marginBottom: 15 }}>✨</div>
-              <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.1rem', marginBottom: 10 }}>
-                Artistic Rigor
-              </h3>
-              <p style={{ fontSize: '0.8rem', color: 'var(--color-muted)', lineHeight: 1.6 }}>
+          <div className="values-grid">
+            <div className="value-card">
+              <div className="value-icon-box" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" className="card-svg-icon">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg>
+              </div>
+              <h3>Artistic Rigor</h3>
+              <p>
                 We reject compromise. From initial sketch to final polish, we demand absolute precision and excellence in craftsmanship.
               </p>
             </div>
-            <div className="form-card" style={{ textAlign: 'center', padding: 30 }}>
-              <div style={{ fontSize: '2rem', marginBottom: 15 }}>🌱</div>
-              <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.1rem', marginBottom: 10 }}>
-                Ethical Sourcing
-              </h3>
-              <p style={{ fontSize: '0.8rem', color: 'var(--color-muted)', lineHeight: 1.6 }}>
+            <div className="value-card">
+              <div className="value-icon-box" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" className="card-svg-icon">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="M12 8v4" />
+                  <path d="M12 16h.01" />
+                </svg>
+              </div>
+              <h3>Ethical Sourcing</h3>
+              <p>
                 We utilize conflict-free diamonds, carefully tracked gemstones, and recycled precious metals to honor the Earth.
               </p>
             </div>
-            <div className="form-card" style={{ textAlign: 'center', padding: 30 }}>
-              <div style={{ fontSize: '2rem', marginBottom: 15 }}>👑</div>
-              <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.1rem', marginBottom: 10 }}>
-                Modern Legacy
-              </h3>
-              <p style={{ fontSize: '0.8rem', color: 'var(--color-muted)', lineHeight: 1.6 }}>
+            <div className="value-card">
+              <div className="value-icon-box" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" className="card-svg-icon">
+                  <path d="M5 18h14" />
+                  <path d="M4 14l3-8 5 4 5-4 3 8H4z" />
+                  <circle cx="12" cy="6" r="1" fill="currentColor" />
+                </svg>
+              </div>
+              <h3>Modern Legacy</h3>
+              <p>
                 Our designs are built to outlast trends. We focus on classic silhouettes with subtle, unexpected structural details.
               </p>
             </div>
           </div>
-        </div>
+        </section>
 
-        {/* Statistics & Artisans */}
-        <div className="form-card" style={{ textAlign: 'center', padding: 40 }}>
-          <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.6rem', marginBottom: 15 }}>
-            Behind the Craft
-          </h2>
-          <p style={{ maxWidth: 650, margin: '0 auto 30px auto', fontSize: '0.85rem', color: 'var(--color-muted)', lineHeight: 1.6 }}>
-            Our studio brings together generational silversmiths and modern designers.
-            This union of centuries-old experience and fresh artistic vision gives Knotix its unique design language.
-          </p>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 20 }}>
-            <div>
-              <span style={{ display: 'block', fontFamily: 'var(--font-serif)', fontSize: '2.2rem', color: 'var(--color-gold)', fontWeight: 600 }}>
-                100%
-              </span>
-              <span style={{ fontSize: '0.75rem', color: 'var(--color-muted)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-                Hand-Finished
-              </span>
-            </div>
-            <div>
-              <span style={{ display: 'block', fontFamily: 'var(--font-serif)', fontSize: '2.2rem', color: 'var(--color-gold)', fontWeight: 600 }}>
-                15+
-              </span>
-              <span style={{ fontSize: '0.75rem', color: 'var(--color-muted)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-                Master Artisans
-              </span>
-            </div>
-            <div>
-              <span style={{ display: 'block', fontFamily: 'var(--font-serif)', fontSize: '2.2rem', color: 'var(--color-gold)', fontWeight: 600 }}>
-                2026
-              </span>
-              <span style={{ fontSize: '0.75rem', color: 'var(--color-muted)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-                Established
-              </span>
+        {/* Statistics & Artisans Section */}
+        <section className="about-section artisans-section">
+          <div className="artisans-card">
+            <div className="artisans-details">
+              <h2>Behind the Craft</h2>
+              <p>
+                Our studio brings together generational silversmiths and modern designers.
+                This union of centuries-old experience and fresh artistic vision gives Knotix its unique design language.
+              </p>
+              <div className="stats-grid">
+                <div className="stat-item">
+                  <span className="stat-number">100%</span>
+                  <span className="stat-label">Hand-Finished</span>
+                </div>
+                <div className="stat-item">
+                  <span className="stat-number">15+</span>
+                  <span className="stat-label">Master Artisans</span>
+                </div>
+                <div className="stat-item">
+                  <span className="stat-number">2026</span>
+                  <span className="stat-label">Established</span>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+        </section>
 
         {/* Call to Action */}
-        <div style={{ textAlign: 'center', padding: '40px 20px' }}>
-          <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '2rem', marginBottom: 10 }}>
-            Experience the Brilliance
-          </h2>
-          <p style={{ color: 'var(--color-muted)', fontSize: '0.9rem', marginBottom: 25 }}>
+        <section className="cta-section">
+          <h2>Experience the Brilliance</h2>
+          <p>
             Discover our exclusive catalog of rings, earrings, bracelets, and necklaces tailored to your premium lifestyle.
           </p>
-          <Link href="/" className="banner-btn">
+          <Link href="/" className="cta-button">
             Browse Collection
           </Link>
-        </div>
+        </section>
       </div>
     </div>
   );
 }
+

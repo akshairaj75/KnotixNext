@@ -11,10 +11,10 @@ export const BUSINESS_CONTACT: BusinessContact = {
     country: 'India',
     full: 'Building No. XII/450, Crafts Plaza, MG Road, Ernakulam, Kerala - 682016, India'
   },
-  phone: '+91 97448 02218',
+  phone: '+91 9744802218',
   phoneRaw: '+919744802218',
   email: 'contact.knotix@gmail.com',
-  whatsapp: '+91 97448 02218',
+  whatsapp: '+9197448 02218',
   whatsappLink: 'https://wa.me/919744802218',
   grievanceEmail: 'grievance@knotixcrafts.com',
   supportHours: {

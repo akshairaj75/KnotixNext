@@ -12,21 +12,17 @@ export default function PrivacyPolicyPage() {
   return (
     <div className="privacy-container">
       <div className="privacy-header">
-        <div style={{ marginBottom: 20 }}>
-          <Link href="/" className="btn-back">
-            <span className="arrow">&larr;</span> Back to Catalog
-          </Link>
-        </div>
+        <Link href="/" className="back-link">
+          <span className="back-arrow">&larr;</span> Back to Catalog
+        </Link>
         <h1 className="page-title">Privacy Policy</h1>
-        <p style={{ fontSize: '0.8rem', color: 'var(--color-muted)' }}>Last Updated: July 2026</p>
+        <p className="last-updated">Last Updated: July 2026</p>
       </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 30 }}>
-        <div className="form-card">
-          <p style={{ fontSize: '0.9rem', color: 'var(--color-charcoal)', lineHeight: 1.7 }}>
-            Welcome to <strong>{contact.brandName}</strong>. Your privacy is important to us.
-            This Privacy Policy explains how we collect, use, and protect your information when you
-            visit our website or place an order.
+      <div className="privacy-content">
+        <div className="intro-card">
+          <p className="intro-text">
+            Welcome to <strong>{contact.brandName}</strong>. Your privacy is important to us. This Privacy Policy explains how we collect, use, and protect your information when you visit our website or place an order.
           </p>
         </div>
 
@@ -124,23 +120,40 @@ export default function PrivacyPolicyPage() {
             </div>
           </section>
 
-          <section className="policy-section">
+          <section className="policy-section contact-section">
             <div className="section-num">09</div>
             <div className="section-details">
               <h2>Contact Us</h2>
               <p>If you have any questions about this Privacy Policy, please reach out to us:</p>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 15, marginTop: 15 }}>
-                <div style={{ padding: 15, border: '1px solid var(--border-color)' }}>
-                  <div style={{ fontSize: '0.7rem', color: 'var(--color-muted)', textTransform: 'uppercase' }}>Email</div>
-                  <a href={`mailto:${contact.email}`} className="detail-link">{contact.email}</a>
+              <div className="contact-info-grid">
+                <div className="contact-card">
+                  <div className="contact-icon-box" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" className="card-svg-icon">
+                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                      <polyline points="22,6 12,13 2,6" />
+                    </svg>
+                  </div>
+                  <div className="contact-label">Email</div>
+                  <a href={`mailto:${contact.email}`} className="contact-value">{contact.email}</a>
                 </div>
-                <div style={{ padding: 15, border: '1px solid var(--border-color)' }}>
-                  <div style={{ fontSize: '0.7rem', color: 'var(--color-muted)', textTransform: 'uppercase' }}>Phone</div>
-                  <a href={`tel:${contact.phoneRaw}`} className="detail-link">{contact.phone}</a>
+                <div className="contact-card">
+                  <div className="contact-icon-box" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" className="card-svg-icon">
+                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                    </svg>
+                  </div>
+                  <div className="contact-label">Phone</div>
+                  <a href={`tel:${contact.phoneRaw}`} className="contact-value">{contact.phone}</a>
                 </div>
-                <div style={{ padding: 15, border: '1px solid var(--border-color)' }}>
-                  <div style={{ fontSize: '0.7rem', color: 'var(--color-muted)', textTransform: 'uppercase' }}>Business Name</div>
-                  <span style={{ fontSize: '0.85rem' }}>{contact.brandName}</span>
+                <div className="contact-card">
+                  <div className="contact-icon-box" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" className="card-svg-icon">
+                      <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+                      <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                    </svg>
+                  </div>
+                  <div className="contact-label">Business Name</div>
+                  <span className="contact-value-text">{contact.brandName}</span>
                 </div>
               </div>
             </div>
@@ -150,3 +163,4 @@ export default function PrivacyPolicyPage() {
     </div>
   );
 }
+

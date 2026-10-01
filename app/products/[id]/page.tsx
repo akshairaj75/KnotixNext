@@ -64,7 +64,7 @@ export default function ProductDetailsPage({
   const getWhatsAppOrderLink = (prod: Product): string => {
     const origin = typeof window !== 'undefined' ? window.location.origin : '';
     const currentUrl = `${origin}/products/${prod.id}`;
-    const priceFormatted = `$${prod.price.toFixed(2)}`;
+    const priceFormatted = `₹${prod.price.toLocaleString('en-IN')}`;
     const message = `Hello Knotix! I would like to inquire about/order the product: ${prod.name} (Price: ${priceFormatted}). Here is the link: ${currentUrl}`;
     return `https://wa.me/${BUSINESS_CONTACT.phoneRaw.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(message)}`;
   };
@@ -184,10 +184,7 @@ export default function ProductDetailsPage({
               </div>
 
               <div className="price-tag">
-                ${product.price.toLocaleString('en-US', {
-                  minimumFractionDigits: 2,
-                  maximumFractionDigits: 2,
-                })}
+                ₹{product.price.toLocaleString('en-IN')}
               </div>
 
               <div className="divider"></div>
@@ -207,6 +204,8 @@ export default function ProductDetailsPage({
                 >
                   <svg
                     className="whatsapp-icon"
+                    width="18"
+                    height="18"
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 448 512"
                     fill="currentColor"

@@ -146,7 +146,7 @@ export default function ProductForm({ initialProductId }: ProductFormProps) {
 
     const priceNum = parseFloat(price);
     if (isNaN(priceNum) || priceNum <= 0) {
-      errs.price = 'Price must be greater than $0.00.';
+      errs.price = 'Price must be greater than ₹0.';
     }
 
     const stockNum = parseInt(stock, 10);
@@ -324,14 +324,14 @@ export default function ProductForm({ initialProductId }: ProductFormProps) {
 
             {/* Price */}
             <div className="form-group">
-              <label htmlFor="price">Price (USD)</label>
+              <label htmlFor="price">Price (₹ INR)</label>
               <input
                 type="number"
                 id="price"
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
-                placeholder="0.00"
-                step="0.01"
+                placeholder="0"
+                step="1"
               />
               {errors.price && <span className="error-feedback">{errors.price}</span>}
             </div>

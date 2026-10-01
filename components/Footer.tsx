@@ -15,10 +15,10 @@ export default function Footer() {
           <p>Crafting timeless elegance and premium luxury jewelry for your most cherished moments.</p>
 
           <div className="social-links">
-            <a href="javascript:void(0)" aria-label="Instagram">IG</a>
-            <a href="javascript:void(0)" aria-label="Facebook">FB</a>
-            <a href="javascript:void(0)" aria-label="Pinterest">PI</a>
-            <a href="javascript:void(0)" aria-label="TikTok">TT</a>
+            <a href="https://www.instagram.com/knotix_official" onClick={(e) => e.preventDefault()} aria-label="Instagram">IG</a>
+            {/* <a href="#" onClick={(e) => e.preventDefault()} aria-label="Facebook">FB</a>
+            <a href="#" onClick={(e) => e.preventDefault()} aria-label="Pinterest">PI</a>
+            <a href="#" onClick={(e) => e.preventDefault()} aria-label="TikTok">TT</a> */}
           </div>
         </div>
 

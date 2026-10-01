@@ -89,10 +89,7 @@ export default function RelatedProducts({
                 <div className="category-label">{prod.category}</div>
                 <h3 className="related-name">{prod.name}</h3>
                 <div className="related-price">
-                  ${prod.price.toLocaleString('en-US', {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                  })}
+                  ₹{prod.price.toLocaleString('en-IN')}
                 </div>
               </div>
             </div>

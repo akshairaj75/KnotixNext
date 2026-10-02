@@ -9,7 +9,7 @@ import { useAuth } from '@/context/AuthContext';
 import { BUSINESS_CONTACT } from '@/lib/constants';
 import RelatedProducts from '@/components/RelatedProducts';
 
-const emptySubscribe = () => () => {};
+const emptySubscribe = () => () => { };
 
 export default function ProductDetailsPage({
   params,
@@ -255,7 +255,7 @@ export default function ProductDetailsPage({
                   <span className="rating-value">{(product.rating || 4.5).toFixed(1)}</span>
                 </div>
 
-                <div
+                {/* <div
                   className={`stock-status ${product.stock <= 3 ? 'low-stock' : ''}`}
                 >
                   <span className="indicator-dot"></span>
@@ -264,7 +264,7 @@ export default function ProductDetailsPage({
                   ) : (
                     <span>In Stock ({product.stock} pieces)</span>
                   )}
-                </div>
+                </div> */}
               </div>
 
               <div className="price-tag">

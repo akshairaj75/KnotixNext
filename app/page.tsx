@@ -103,25 +103,98 @@ export default function HomePage() {
     return items;
   }, [products, searchQuery, selectedCategory, sortBy]);
 
+  const heroImageUrl =
+    HERO_BANNER.backgroundImage.startsWith('/') ||
+    HERO_BANNER.backgroundImage.startsWith('http') ||
+    HERO_BANNER.backgroundImage.startsWith('data:')
+      ? HERO_BANNER.backgroundImage
+      : `/${HERO_BANNER.backgroundImage}`;
+
   return (
     <>
-      <section
-        className="home-banner"
-        style={{
-          backgroundImage: `radial-gradient(circle at 80% 50%, rgba(0, 0, 0, 0.2) 0%, rgba(11, 11, 11, 0.95) 75%), url('${HERO_BANNER.backgroundImage}')`,
-        }}
-      >
-        <div className="banner-overlay"></div>
-        <div className="banner-content">
-          <span className="banner-badge">{HERO_BANNER.badge}</span>
-          <h1 className="banner-title">{HERO_BANNER.title}</h1>
-          <div className="title-underline"></div>
-          <p className="banner-subtitle">{HERO_BANNER.subtitle}</p>
-          <a href={HERO_BANNER.buttonLink} className="banner-btn">
-            {HERO_BANNER.buttonText}
-          </a>
-        </div>
-      </section>
+      {HERO_BANNER.layout === 'fullscreen' ? (
+        <section
+          className="home-banner"
+          style={{
+            backgroundImage: `radial-gradient(circle at 80% 50%, rgba(0, 0, 0, 0.2) 0%, rgba(11, 11, 11, 0.95) 75%), url('${heroImageUrl}')`,
+          }}
+        >
+          <div className="banner-overlay"></div>
+          <div className="banner-content">
+            <span className="banner-badge">{HERO_BANNER.badge}</span>
+            <h1 className="banner-title">{HERO_BANNER.title}</h1>
+            <div className="title-underline"></div>
+            <p className="banner-subtitle">{HERO_BANNER.subtitle}</p>
+            <a href={HERO_BANNER.buttonLink} className="banner-btn">
+              <span>{HERO_BANNER.buttonText}</span>
+            </a>
+          </div>
+        </section>
+      ) : (
+        <section className="split-hero-section">
+          <div className="split-hero-bg-glow"></div>
+          <div className="split-hero-container">
+            {/* Left Content */}
+            <div className="split-hero-content">
+              <span className="banner-badge">{HERO_BANNER.badge}</span>
+              <h1 className="split-hero-title">{HERO_BANNER.title}</h1>
+              <div className="title-underline"></div>
+              <p className="split-hero-subtitle">{HERO_BANNER.subtitle}</p>
+
+              <div className="split-hero-actions">
+                <a href={HERO_BANNER.buttonLink} className="banner-btn">
+                  <span>{HERO_BANNER.buttonText}</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="banner-btn-arrow"
+                    aria-hidden="true"
+                  >
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                    <polyline points="12 5 19 12 12 19" />
+                  </svg>
+                </a>
+                <Link href="/about" className="hero-secondary-link">
+                  Our Heritage &rarr;
+                </Link>
+              </div>
+
+              <div className="hero-highlights">
+                <div className="hero-highlight-item">
+                  <span className="highlight-symbol">✦</span>
+                  <span>Handcrafted Precision</span>
+                </div>
+                <div className="hero-highlight-item">
+                  <span className="highlight-symbol">✦</span>
+                  <span>Pure Luxury</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Campaign Poster */}
+            <div className="split-hero-visual">
+              <div className="hero-poster-frame">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={heroImageUrl}
+                  alt={HERO_BANNER.title}
+                  className="hero-poster-img"
+                  loading="eager"
+                />
+                <div className="poster-gold-corner top-left"></div>
+                <div className="poster-gold-corner bottom-right"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       <div className="catalog-container" id="catalog-section">
         {/* Category Tab Buttons Navigation */}

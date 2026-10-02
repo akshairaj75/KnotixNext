@@ -732,6 +732,180 @@ button {
 }
 
 /* ========================================================
+   EDITORIAL SPLIT HERO BANNER (CAMPAIGN SHOWCASE)
+   ======================================================== */
+.split-hero-section {
+  position: relative;
+  width: 100%;
+  min-height: 560px;
+  background: radial-gradient(circle at 75% 45%, rgba(197, 168, 128, 0.08) 0%, transparent 60%), #090909;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border-color);
+  padding: 60px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.split-hero-bg-glow {
+  position: absolute;
+  top: 5%;
+  right: 12%;
+  width: 480px;
+  height: 480px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(197, 168, 128, 0.15) 0%, rgba(212, 175, 55, 0.04) 50%, transparent 75%);
+  filter: blur(60px);
+  pointer-events: none;
+}
+
+.split-hero-container {
+  max-width: var(--container-width, 1200px);
+  width: 100%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  align-items: center;
+  gap: 60px;
+  position: relative;
+  z-index: 2;
+}
+
+.split-hero-content {
+  max-width: 580px;
+}
+
+.split-hero-title {
+  font-family: var(--font-serif);
+  font-size: 3.6rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  line-height: 1.12;
+  margin-bottom: 15px;
+  color: #ffffff;
+}
+
+.split-hero-subtitle {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.7;
+  color: #cccccc;
+  margin-bottom: 32px;
+}
+
+.split-hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 35px;
+}
+
+.banner-btn-arrow {
+  transition: transform var(--transition-fast);
+}
+
+.banner-btn:hover .banner-btn-arrow {
+  transform: translateX(4px);
+}
+
+.hero-secondary-link {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  text-decoration: none;
+  transition: var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.hero-secondary-link:hover {
+  color: var(--color-gold);
+}
+
+.hero-highlights {
+  display: flex;
+  gap: 28px;
+  border-top: 1px solid rgba(197, 168, 128, 0.2);
+  padding-top: 22px;
+  flex-wrap: wrap;
+}
+
+.hero-highlight-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.highlight-symbol {
+  color: var(--color-gold);
+  font-size: 0.75rem;
+}
+
+.split-hero-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.hero-poster-frame {
+  position: relative;
+  max-width: 400px;
+  width: 100%;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(197, 168, 128, 0.18);
+  border: 1px solid rgba(197, 168, 128, 0.35);
+  background: #111111;
+  transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
+}
+
+.hero-poster-frame:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 26px 60px rgba(0, 0, 0, 0.8), 0 0 45px rgba(197, 168, 128, 0.3);
+}
+
+.hero-poster-img {
+  width: 100%;
+  height: auto;
+  max-height: 520px;
+  object-fit: cover;
+  display: block;
+}
+
+.poster-gold-corner {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+}
+
+.poster-gold-corner.top-left {
+  top: 12px;
+  left: 12px;
+  border-top: 2px solid var(--color-gold);
+  border-left: 2px solid var(--color-gold);
+}
+
+.poster-gold-corner.bottom-right {
+  bottom: 12px;
+  right: 12px;
+  border-bottom: 2px solid var(--color-gold);
+  border-right: 2px solid var(--color-gold);
+}
+
+/* ========================================================
    CATEGORY TAB BUTTONS NAVIGATION
    ======================================================== */
 .category-tabs-section {
@@ -3379,6 +3553,40 @@ code {
     min-height: 380px;
     padding: 60px 20px;
     justify-content: center;
+  }
+
+  .split-hero-section {
+    padding: 40px 20px;
+    min-height: auto;
+  }
+
+  .split-hero-container {
+    grid-template-columns: 1fr;
+    gap: 36px;
+    text-align: center;
+  }
+
+  .split-hero-content {
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .split-hero-title {
+    font-size: clamp(2.4rem, 8vw, 3.2rem);
+  }
+
+  .split-hero-actions {
+    justify-content: center;
+  }
+
+  .hero-highlights {
+    justify-content: center;
+  }
+
+  .hero-poster-frame {
+    max-width: 320px;
   }
   
   .banner-content {

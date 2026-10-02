@@ -1,13 +1,15 @@
 import { BusinessContact, HeroBannerContent } from './types';
 
 export const HERO_BANNER: HeroBannerContent = {
-  badge: 'KNOTIX JEWELS',
+  badge: 'KNOTIX ATELIER • 2026 CAMPAIGN',
   title: 'COLLECTIONS',
-  subtitle: 'Distinctive designs. Premium craftsmanship. Explore our curated collections.',
+  subtitle: 'Carry more than style. Distinctive designs crafted with character.',
   buttonText: 'Explore Creations',
   buttonLink: '#catalog-section',
-  // You can set any local image (e.g. '/images/hero.jpg') or external URL here:
-  backgroundImage: '/static/hero2.jpeg',
+  // Local path (in public/ folder, e.g. '/static/hero4.jpeg') or external URL:
+  backgroundImage: '/static/hero3.jpeg',
+  // Layout mode: 'split' (optimal for portrait/editorial posters) or 'fullscreen' (for wide landscape banners)
+  layout: 'split',
 };
 
 export const BUSINESS_CONTACT: BusinessContact = {

@@ -60,7 +60,7 @@ export default function Footer() {
           <h4>Studio Concierge</h4>
           <p>Email: {contact.email}</p>
           <p>Phone: {contact.phone}</p>
-          <p>Hours: {contact.supportHours.timings}</p>
+          {/* <p>Hours: {contact.supportHours.timings}</p> */}
         </div>
       </div>
 

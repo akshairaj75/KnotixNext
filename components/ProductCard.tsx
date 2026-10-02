@@ -45,11 +45,11 @@ export default function ProductCard({ product }: ProductCardProps) {
           </div>
         )}
         <span className="category-badge">{product.category}</span>
-        {product.stock <= 3 ? (
+        {/* {product.stock <= 3 ? (
           <span className="stock-badge urgent">Only {product.stock} left</span>
         ) : (
           <span className="stock-badge">In Stock</span>
-        )}
+        )} */}
       </div>
 
       <div className="card-content">

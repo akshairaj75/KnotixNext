@@ -102,5 +102,7 @@ export interface HeroBannerContent {
   buttonText: string;
   buttonLink: string;
   backgroundImage: string;
+  layout?: 'split' | 'fullscreen';
 }
+
 

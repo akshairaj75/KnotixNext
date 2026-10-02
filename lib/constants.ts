@@ -1,4 +1,14 @@
-import { BusinessContact } from './types';
+import { BusinessContact, HeroBannerContent } from './types';
+
+export const HERO_BANNER: HeroBannerContent = {
+  badge: 'KNOTIX JEWELS',
+  title: 'COLLECTIONS',
+  subtitle: 'Distinctive designs. Premium craftsmanship. Explore our curated collections.',
+  buttonText: 'Explore Creations',
+  buttonLink: '#catalog-section',
+  // You can set any local image (e.g. '/images/hero.jpg') or external URL here:
+  backgroundImage: '/static/hero2.jpeg',
+};
 
 export const BUSINESS_CONTACT: BusinessContact = {
   brandName: 'Knotix',

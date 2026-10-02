@@ -9,6 +9,8 @@ import { useAuth } from '@/context/AuthContext';
 import { BUSINESS_CONTACT } from '@/lib/constants';
 import RelatedProducts from '@/components/RelatedProducts';
 
+const emptySubscribe = () => () => {};
+
 export default function ProductDetailsPage({
   params,
 }: {
@@ -17,6 +19,12 @@ export default function ProductDetailsPage({
   const { id } = use(params);
   const router = useRouter();
   const { isAdmin } = useAuth();
+
+  const mounted = React.useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  );
 
   const [product, setProduct] = useState<Product | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -93,11 +101,73 @@ export default function ProductDetailsPage({
 
       {/* Error State */}
       {errorMessage && (
-        <div className="empty-state">
-          <p className="error-msg">{errorMessage}</p>
-          <Link href="/" className="btn btn-reset" style={{ marginTop: 20 }}>
-            Back to Catalog
-          </Link>
+        <div className="luxury-state-wrapper">
+          <div className="luxury-state-card">
+            <div className="luxury-badge error-badge">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="11"
+                height="11"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="8" x2="12" y2="12" />
+                <line x1="12" y1="16" x2="12.01" y2="16" />
+              </svg>
+              <span>Piece Notice</span>
+            </div>
+
+            <div className="luxury-state-icon-circle error-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="28"
+                height="28"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="8" x2="12" y2="12" />
+                <line x1="12" y1="16" x2="12.01" y2="16" />
+              </svg>
+            </div>
+
+            <h2 className="luxury-state-title">Creation Not Available</h2>
+            <p className="luxury-state-desc">{errorMessage}</p>
+
+            <div className="luxury-state-actions">
+              <Link href="/" className="btn-luxury-primary">
+                <span className="btn-icon">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                  >
+                    <line x1="19" y1="12" x2="5" y2="12" />
+                    <polyline points="12 19 5 12 12 5" />
+                  </svg>
+                </span>
+                <span>Back to Catalog</span>
+              </Link>
+            </div>
+          </div>
         </div>
       )}
 
@@ -140,11 +210,25 @@ export default function ProductDetailsPage({
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      fontSize: '4rem',
                       color: 'var(--color-gold)',
                     }}
                   >
-                    💍
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="56"
+                      height="56"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.25"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M6 3h12l4 6-10 12L2 9z" />
+                      <path d="M2 9h20" />
+                      <path d="M10 3l-2 6 4 12 4-12-2-6" />
+                    </svg>
                   </div>
                 )}
               </div>
@@ -222,22 +306,107 @@ export default function ProductDetailsPage({
                   <span>Request Bespoke Fitting</span>
                 </button>
 
-                {isAdmin && (
-                  <div style={{ display: 'flex', gap: 10, marginTop: 10 }}>
-                    <Link
-                      href={`/edit/${product.id}`}
-                      className="btn btn-edit-gold"
-                      style={{ flex: 1 }}
+                {mounted && isAdmin && (
+                  <div
+                    className="admin-atelier-panel"
+                    style={{
+                      marginTop: 20,
+                      padding: '16px',
+                      border: '1px dashed rgba(197, 168, 128, 0.4)',
+                      background: 'rgba(197, 168, 128, 0.05)',
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        marginBottom: 12,
+                        fontSize: '0.68rem',
+                        letterSpacing: '0.15em',
+                        textTransform: 'uppercase',
+                        color: 'var(--color-gold)',
+                        fontWeight: 600,
+                        fontFamily: 'var(--font-display)',
+                      }}
                     >
-                      <span>Edit Masterpiece</span>
-                    </Link>
-                    <button
-                      onClick={() => handleDelete(product.id)}
-                      className="btn btn-delete-red"
-                      style={{ flex: 1 }}
-                    >
-                      <span>Delete Masterpiece</span>
-                    </button>
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="12"
+                          height="12"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                          <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                        </svg>
+                        Admin Atelier Controls
+                      </span>
+                      <span style={{ color: 'var(--color-muted)', fontSize: '0.65rem' }}>Authorized Admin</span>
+                    </div>
+
+                    <div style={{ display: 'flex', gap: 10 }}>
+                      <Link
+                        href={`/edit/${product.id}`}
+                        className="btn btn-edit-gold"
+                        style={{
+                          flex: 1,
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: 6,
+                        }}
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="13"
+                          height="13"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M12 20h9" />
+                          <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+                        </svg>
+                        <span>Edit Masterpiece</span>
+                      </Link>
+                      <button
+                        type="button"
+                        onClick={() => handleDelete(product.id)}
+                        className="btn btn-delete-red"
+                        style={{
+                          flex: 1,
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: 6,
+                        }}
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="13"
+                          height="13"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <polyline points="3 6 5 6 21 6" />
+                          <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                        </svg>
+                        <span>Delete Masterpiece</span>
+                      </button>
+                    </div>
                   </div>
                 )}
               </div>
@@ -245,11 +414,44 @@ export default function ProductDetailsPage({
               {/* Premium Details Badges */}
               <div className="specs-badge-grid">
                 <div className="spec-badge">
-                  <span className="badge-icon">🚚</span>
+                  <span className="badge-icon">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.6"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      style={{ color: 'var(--color-gold)' }}
+                    >
+                      <rect x="1" y="3" width="15" height="13" />
+                      <polygon points="16 8 20 8 23 11 23 16 16 16 16 8" />
+                      <circle cx="5.5" cy="18.5" r="2.5" />
+                      <circle cx="18.5" cy="18.5" r="2.5" />
+                    </svg>
+                  </span>
                   <span className="badge-text">Complimentary Insured Shipping</span>
                 </div>
                 <div className="spec-badge">
-                  <span className="badge-icon">🛡️</span>
+                  <span className="badge-icon">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.6"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      style={{ color: 'var(--color-gold)' }}
+                    >
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                    </svg>
+                  </span>
                   <span className="badge-text">Authenticity Certificate Included</span>
                 </div>
               </div>

@@ -1,20 +1,23 @@
 'use client';
 
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo, useCallback } from 'react';
+import Link from 'next/link';
 import { Product } from '@/lib/types';
 import { apiService } from '@/services/api';
 import ProductCard from '@/components/ProductCard';
+import { HERO_BANNER } from '@/lib/constants';
 
 export default function HomePage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isRetrying, setIsRetrying] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [sortBy, setSortBy] = useState<string>('rating');
 
-  const fetchProducts = React.useCallback(async () => {
+  const fetchProducts = useCallback(async () => {
     setIsLoading(true);
     setErrorMessage(null);
     try {
@@ -28,6 +31,12 @@ export default function HomePage() {
       setIsLoading(false);
     }
   }, []);
+
+  const handleRetry = useCallback(async () => {
+    setIsRetrying(true);
+    await fetchProducts();
+    setIsRetrying(false);
+  }, [fetchProducts]);
 
   useEffect(() => {
     let isMounted = true;
@@ -96,17 +105,20 @@ export default function HomePage() {
 
   return (
     <>
-      <section className="home-banner">
+      <section
+        className="home-banner"
+        style={{
+          backgroundImage: `radial-gradient(circle at 80% 50%, rgba(0, 0, 0, 0.2) 0%, rgba(11, 11, 11, 0.95) 75%), url('${HERO_BANNER.backgroundImage}')`,
+        }}
+      >
         <div className="banner-overlay"></div>
         <div className="banner-content">
-          <span className="banner-badge">KNOTIX JEWELS</span>
-          <h1 className="banner-title">COLLECTIONS</h1>
+          <span className="banner-badge">{HERO_BANNER.badge}</span>
+          <h1 className="banner-title">{HERO_BANNER.title}</h1>
           <div className="title-underline"></div>
-          <p className="banner-subtitle">
-            Distinctive designs. Premium craftsmanship. Explore our curated collections.
-          </p>
-          <a href="#catalog-section" className="banner-btn">
-            Explore Creations
+          <p className="banner-subtitle">{HERO_BANNER.subtitle}</p>
+          <a href={HERO_BANNER.buttonLink} className="banner-btn">
+            {HERO_BANNER.buttonText}
           </a>
         </div>
       </section>
@@ -207,16 +219,87 @@ export default function HomePage() {
         )}
 
         {/* Error State */}
-        {errorMessage && (
-          <div className="error-state" style={{ textAlign: 'center', margin: '40px 0' }}>
-            <p className="error-msg" style={{ color: '#ef4444', marginBottom: 15 }}>{errorMessage}</p>
-            <button
-              onClick={() => fetchProducts()}
-              className="btn btn-reset"
-              style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}
-            >
-              🔄 Retry Loading Collections
-            </button>
+        {errorMessage && !isLoading && (
+          <div className="luxury-state-wrapper">
+            <div className="luxury-state-card">
+              <div className="luxury-badge error-badge">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="11"
+                  height="11"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="12" y1="8" x2="12" y2="12" />
+                  <line x1="12" y1="16" x2="12.01" y2="16" />
+                </svg>
+                <span>Connection Notice</span>
+              </div>
+
+              <div className="luxury-state-icon-circle error-icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="12" y1="8" x2="12" y2="12" />
+                  <line x1="12" y1="16" x2="12.01" y2="16" />
+                </svg>
+              </div>
+
+              <h2 className="luxury-state-title">Unable to Load Collections</h2>
+              <p className="luxury-state-desc">
+                We are experiencing difficulty connecting to the atelier catalog. Please verify your connection or retry loading the creations.
+              </p>
+
+              <div className="luxury-error-pill">
+                <span>{errorMessage}</span>
+              </div>
+
+              <div className="luxury-state-actions">
+                <button
+                  type="button"
+                  onClick={handleRetry}
+                  disabled={isRetrying}
+                  className="btn-luxury-primary"
+                >
+                  <span className={`btn-icon ${isRetrying ? 'icon-spin' : ''}`}>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                      <path d="M3 3v5h5" />
+                      <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16" />
+                      <path d="M16 21h5v-5" />
+                    </svg>
+                  </span>
+                  <span>{isRetrying ? 'Reconnecting...' : 'Retry Loading Collections'}</span>
+                </button>
+              </div>
+            </div>
           </div>
         )}
 
@@ -229,22 +312,137 @@ export default function HomePage() {
                   <ProductCard key={prod.id} product={prod} />
                 ))}
               </div>
+            ) : products.length === 0 ? (
+              /* Completely Empty Catalog State */
+              <div className="luxury-state-wrapper">
+                <div className="luxury-state-card">
+                  <div className="luxury-badge">
+                    <span>Curated Vault</span>
+                  </div>
+
+                  <div className="luxury-state-icon-circle">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="30"
+                      height="30"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M6 3h12l4 6-10 12L2 9z" />
+                      <path d="M2 9h20" />
+                      <path d="M10 3l-2 6 4 12 4-12-2-6" />
+                    </svg>
+                  </div>
+
+                  <h2 className="luxury-state-title">The Vault is Being Curated</h2>
+                  <p className="luxury-state-desc">
+                    Our atelier is currently handcrafting and preparing new pieces for this collection. Please check back shortly or explore our bespoke creations.
+                  </p>
+
+                  <div className="luxury-state-actions">
+                    <button
+                      type="button"
+                      onClick={handleRetry}
+                      disabled={isRetrying}
+                      className="btn-luxury-primary"
+                    >
+                      <span className={`btn-icon ${isRetrying ? 'icon-spin' : ''}`}>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="15"
+                          height="15"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          aria-hidden="true"
+                        >
+                          <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                          <path d="M3 3v5h5" />
+                          <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16" />
+                          <path d="M16 21h5v-5" />
+                        </svg>
+                      </span>
+                      <span>{isRetrying ? 'Refreshing...' : 'Refresh Collections'}</span>
+                    </button>
+                    <Link href="/contact" className="btn-luxury-secondary">
+                      Contact Atelier
+                    </Link>
+                  </div>
+                </div>
+              </div>
             ) : (
-              <div className="empty-state">
-                <span className="empty-icon">💍</span>
-                <h3>No products found</h3>
-                <p>
-                  We couldn&apos;t find any pieces matching your current search or filter criteria.
-                </p>
-                <button
-                  onClick={() => {
-                    setSearchQuery('');
-                    setSelectedCategory('All');
-                  }}
-                  className="btn btn-reset"
-                >
-                  Clear Filters
-                </button>
+              /* Search/Filter Empty State */
+              <div className="luxury-state-wrapper">
+                <div className="luxury-state-card">
+                  <div className="luxury-badge">
+                    <span>Filtered View</span>
+                  </div>
+
+                  <div className="luxury-state-icon-circle">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="28"
+                      height="28"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.6"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <circle cx="11" cy="11" r="8" />
+                      <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                      <line x1="11" y1="8" x2="11" y2="14" />
+                      <line x1="8" y1="11" x2="14" y2="11" />
+                    </svg>
+                  </div>
+
+                  <h2 className="luxury-state-title">No Matching Pieces Found</h2>
+                  <p className="luxury-state-desc">
+                    {searchQuery
+                      ? `We couldn't find any creations matching "${searchQuery}". Try adjusting your search query or clear filters.`
+                      : `No creations found in the "${selectedCategory}" collection. Try selecting a different category or view all.`}
+                  </p>
+
+                  <div className="luxury-state-actions">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSearchQuery('');
+                        setSelectedCategory('All');
+                      }}
+                      className="btn-luxury-primary"
+                    >
+                      <span className="btn-icon">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="14"
+                          height="14"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          aria-hidden="true"
+                        >
+                          <line x1="18" y1="6" x2="6" y2="18" />
+                          <line x1="6" y1="6" x2="18" y2="18" />
+                        </svg>
+                      </span>
+                      <span>Clear All Filters</span>
+                    </button>
+                  </div>
+                </div>
               </div>
             )}
           </div>

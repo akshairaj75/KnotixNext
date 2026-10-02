@@ -94,3 +94,13 @@ export interface BusinessContact {
     timings: string;
   };
 }
+
+export interface HeroBannerContent {
+  badge: string;
+  title: string;
+  subtitle: string;
+  buttonText: string;
+  buttonLink: string;
+  backgroundImage: string;
+}
+

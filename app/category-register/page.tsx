@@ -1,14 +1,23 @@
 'use client';
 
 import React, { useEffect, useState, useMemo } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Category } from '@/lib/types';
 import { apiService } from '@/services/api';
 import { useAuth } from '@/context/AuthContext';
 
+const emptySubscribe = () => () => {};
+
 export default function CategoryRegisterPage() {
   const router = useRouter();
   const { isAdmin, isLoading: authLoading } = useAuth();
+
+  const mounted = React.useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  );
 
   const [categories, setCategories] = useState<Category[]>([]);
   const [name, setName] = useState('');
@@ -28,10 +37,10 @@ export default function CategoryRegisterPage() {
 
   // Auth Guard
   useEffect(() => {
-    if (!authLoading && !isAdmin) {
-      router.push('/');
+    if (mounted && !authLoading && !isAdmin) {
+      router.push('/admin-portal');
     }
-  }, [isAdmin, authLoading, router]);
+  }, [mounted, isAdmin, authLoading, router]);
 
   const loadCategories = React.useCallback(async () => {
     try {
@@ -160,10 +169,74 @@ export default function CategoryRegisterPage() {
     }
   };
 
-  if (authLoading) {
+  if (!mounted || authLoading) {
     return (
-      <div className="register-page-container" style={{ textAlign: 'center' }}>
-        <div className="spinner"></div>
+      <div className="register-page-container" style={{ minHeight: '65vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div className="loading-state">
+          <div className="spinner"></div>
+          <p>VERIFYING ATELIER PRIVILEGES...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!isAdmin) {
+    return (
+      <div className="register-page-container" style={{ minHeight: '70vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div className="luxury-state-wrapper">
+          <div className="luxury-state-card">
+            <div className="luxury-badge error-badge">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="11"
+                height="11"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+              </svg>
+              <span>Restricted Access</span>
+            </div>
+
+            <div className="luxury-state-icon-circle error-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="28"
+                height="28"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+              </svg>
+            </div>
+
+            <h2 className="luxury-state-title">Admin Privileges Required</h2>
+            <p className="luxury-state-desc">
+              Managing atelier categories and jewelry classifications is restricted to authorized Knotix administrators.
+            </p>
+
+            <div className="luxury-state-actions">
+              <Link href="/admin-portal" className="btn-luxury-primary">
+                <span>Sign In via Admin Portal</span>
+              </Link>
+              <Link href="/" className="btn-luxury-secondary">
+                <span>Return to Catalog</span>
+              </Link>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

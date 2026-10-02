@@ -2,7 +2,13 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { isAuthorizedAdmin } from '@/lib/auth';
 import { storeFile } from '@/lib/storage';
-import { ProductStatus } from '@prisma/client';
+export type ProductStatus = 'DRAFT' | 'ACTIVE' | 'OUT_OF_STOCK' | 'ARCHIVED';
+export const ProductStatus = {
+  DRAFT: 'DRAFT',
+  ACTIVE: 'ACTIVE',
+  OUT_OF_STOCK: 'OUT_OF_STOCK',
+  ARCHIVED: 'ARCHIVED',
+} as const;
 
 export const dynamic = 'force-dynamic';
 
@@ -129,6 +135,7 @@ export async function PUT(
           },
         });
       } else {
+        const now = new Date();
         await tx.productVariant.create({
           data: {
             productId,
@@ -138,6 +145,8 @@ export async function PUT(
             stockQuantity: stock !== undefined ? stock : 10,
             defaultVariant: true,
             active: true,
+            createdAt: now,
+            updatedAt: now,
           },
         });
       }
@@ -161,6 +170,7 @@ export async function PUT(
               altText: 'image',
               sortOrder: 0,
               primaryImage: true,
+              createdAt: new Date(),
             },
           });
         }

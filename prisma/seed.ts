@@ -5,6 +5,8 @@ const prisma = new PrismaClient();
 async function main() {
   console.log('Seeding Knotix database...');
 
+  const now = new Date();
+
   // Create default admin user if not existing
   const adminUser = await prisma.user.upsert({
     where: { email: 'admin@knotix.com' },
@@ -16,6 +18,8 @@ async function main() {
       passwordHash: 'KnotixAdmin2026!',
       role: 'ADMIN',
       active: true,
+      createdAt: now,
+      updatedAt: now,
     },
   });
   console.log('Admin user verified:', adminUser.email);
@@ -42,6 +46,8 @@ async function main() {
         description: cat.description,
         sortOrder: cat.sortOrder,
         isActive: true,
+        createdAt: now,
+        updatedAt: now,
       },
     });
   }

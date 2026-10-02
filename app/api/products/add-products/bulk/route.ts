@@ -1,7 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { isAuthorizedAdmin } from '@/lib/auth';
-import { ProductStatus } from '@prisma/client';
+export type ProductStatus = 'DRAFT' | 'ACTIVE' | 'OUT_OF_STOCK' | 'ARCHIVED';
+export const ProductStatus = {
+  DRAFT: 'DRAFT',
+  ACTIVE: 'ACTIVE',
+  OUT_OF_STOCK: 'OUT_OF_STOCK',
+  ARCHIVED: 'ARCHIVED',
+} as const;
 
 export const dynamic = 'force-dynamic';
 
@@ -41,6 +47,7 @@ export async function POST(request: NextRequest) {
       const stock = item.stock !== undefined ? Number(item.stock) : 10;
       const sku = item.sku || `${slug}-default`;
 
+      const now = new Date();
       const created = await prisma.$transaction(async (tx) => {
         const prod = await tx.product.create({
           data: {
@@ -51,8 +58,10 @@ export async function POST(request: NextRequest) {
             shortDescription: item.description?.substring(0, 97),
             description: item.description || '',
             basePrice,
-            status: (item.status as ProductStatus) || ProductStatus.ACTIVE,
+            status: (item.status as string) || ProductStatus.ACTIVE,
             featured: Boolean(item.featured),
+            createdAt: now,
+            updatedAt: now,
           },
         });
 
@@ -65,6 +74,8 @@ export async function POST(request: NextRequest) {
             stockQuantity: stock,
             defaultVariant: true,
             active: true,
+            createdAt: now,
+            updatedAt: now,
           },
         });
 
@@ -76,6 +87,7 @@ export async function POST(request: NextRequest) {
               altText: 'image',
               sortOrder: 0,
               primaryImage: true,
+              createdAt: now,
             },
           });
         }

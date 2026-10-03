@@ -11,7 +11,7 @@ export const HERO_BANNER: HeroBannerContent = {
   buttonText: 'Explore Creations',
   buttonLink: '#catalog-section',
   // Local path (in public/ folder, e.g. '/static/hero4.jpeg') or external URL:
-  backgroundImage: '/static/hero1.jpeg',
+  backgroundImage: '/static/hero7.jpeg',
   // Layout mode: 'split' (optimal for portrait/editorial posters) or 'fullscreen' (for wide landscape banners)
   layout: 'split',
 };

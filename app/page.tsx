@@ -105,8 +105,8 @@ export default function HomePage() {
 
   const heroImageUrl =
     HERO_BANNER.backgroundImage.startsWith('/') ||
-    HERO_BANNER.backgroundImage.startsWith('http') ||
-    HERO_BANNER.backgroundImage.startsWith('data:')
+      HERO_BANNER.backgroundImage.startsWith('http') ||
+      HERO_BANNER.backgroundImage.startsWith('data:')
       ? HERO_BANNER.backgroundImage
       : `/${HERO_BANNER.backgroundImage}`;
 

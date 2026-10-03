@@ -1,10 +1,10 @@
 import { NextRequest } from 'next/server';
 
 export const ADMIN_CREDENTIALS = {
-  email: 'admin@knotix.com',
-  username: 'admin',
-  password: 'KnotixAdmin2026!',
-  token: 'admin-token',
+  email: process.env.ADMIN_EMAIL || 'admin@knotix.com',
+  username: process.env.ADMIN_USERNAME || 'admin',
+  password: process.env.ADMIN_PASSWORD || 'KnotixAdmin2026!',
+  token: process.env.ADMIN_TOKEN || 'admin-token',
 };
 
 /**

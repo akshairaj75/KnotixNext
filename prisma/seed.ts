@@ -13,9 +13,9 @@ async function main() {
     update: {},
     create: {
       fullName: 'Knotix Administrator',
-      email: 'admin@knotix.com',
+      email: process.env.ADMIN_EMAIL || 'admin@knotix.com',
       phone: '+919744802218',
-      passwordHash: 'KnotixAdmin2026!',
+      passwordHash: process.env.ADMIN_PASSWORD || 'KnotixAdmin2026!',
       role: 'ADMIN',
       active: true,
       createdAt: now,

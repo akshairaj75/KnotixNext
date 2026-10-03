@@ -37,19 +37,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const login = async (username: string, password: string): Promise<boolean> => {
     setIsLoading(true);
-    const user = username.trim().toLowerCase();
-    if ((user === 'admin' || user === 'admin@knotix.com') && password === 'KnotixAdmin2026!') {
-      localStorage.setItem('role', 'ADMIN');
-      localStorage.setItem('token', 'admin-token');
-      localStorage.setItem('knotix_role', 'ADMIN');
-      localStorage.setItem('knotix_token', 'admin-token');
-      document.cookie = 'token=admin-token; path=/; max-age=604800; SameSite=Lax';
-      document.cookie = 'role=ADMIN; path=/; max-age=604800; SameSite=Lax';
-      setIsAdmin(true);
-      setIsLoading(false);
-      return true;
-    }
-
     try {
       const res = await fetch('/api/auth/login', {
         method: 'POST',

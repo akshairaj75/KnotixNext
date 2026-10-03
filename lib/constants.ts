@@ -1,5 +1,9 @@
 import { BusinessContact, HeroBannerContent } from './types';
 
+export const SITE_CONFIG = {
+  favicon: '/static/favicon.png',
+};
+
 export const HERO_BANNER: HeroBannerContent = {
   badge: 'KNOTIX ATELIER • 2026 CAMPAIGN',
   title: 'COLLECTIONS',

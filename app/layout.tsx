@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
+import { SITE_CONFIG } from '@/lib/constants';
 import { AuthProvider } from '@/context/AuthContext';
 import { ThemeProvider } from '@/context/ThemeContext';
 import Navbar from '@/components/Navbar';
@@ -9,6 +10,10 @@ export const metadata: Metadata = {
   title: 'Knotix Crafts — Crafted with Character | Luxury Jewelry Catalog',
   description:
     'Distinctive designs, handcrafted rings, necklaces, bracelets, and earrings. Luxury fine jewelry crafted with character.',
+  icons: {
+    icon: SITE_CONFIG.favicon,
+    apple: SITE_CONFIG.favicon,
+  },
 };
 
 export const viewport: Viewport = {

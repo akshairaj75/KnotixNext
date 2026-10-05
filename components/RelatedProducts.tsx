@@ -84,6 +84,9 @@ export default function RelatedProducts({
                     💍
                   </div>
                 )}
+                {(prod.stock ?? 0) <= 0 && (
+                  <span className="stock-badge out-of-stock">Out of Stock</span>
+                )}
               </div>
               <div className="related-info">
                 <div className="category-label">{prod.category}</div>

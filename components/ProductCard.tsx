@@ -10,16 +10,20 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
+  const isOutOfStock = (product.stock ?? 0) <= 0;
+
   const getWhatsAppOrderLink = (): string => {
     const origin = typeof window !== 'undefined' ? window.location.origin : '';
     const currentUrl = `${origin}/products/${product.id}`;
     const priceFormatted = `₹${product.price.toLocaleString('en-IN')}`;
-    const message = `Hello Knotix! I would like to inquire about/order the product: ${product.name} (Price: ${priceFormatted}). Here is the link: ${currentUrl}`;
+    const message = isOutOfStock
+      ? `Hello Knotix! I would like to inquire about the product: ${product.name} (Price: ${priceFormatted}). As it is currently out of stock, please let me know if it can be made to order or restocked: ${currentUrl}`
+      : `Hello Knotix! I would like to inquire about/order the product: ${product.name} (Price: ${priceFormatted}). Here is the link: ${currentUrl}`;
     return `https://wa.me/${BUSINESS_CONTACT.phoneRaw.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(message)}`;
   };
 
   return (
-    <div className="product-card">
+    <div className={`product-card ${isOutOfStock ? 'is-out-of-stock' : ''}`}>
       <div className="card-image-wrapper">
         {product.image ? (
           // eslint-disable-next-line @next/next/no-img-element
@@ -45,11 +49,9 @@ export default function ProductCard({ product }: ProductCardProps) {
           </div>
         )}
         <span className="category-badge">{product.category}</span>
-        {/* {product.stock <= 3 ? (
-          <span className="stock-badge urgent">Only {product.stock} left</span>
-        ) : (
-          <span className="stock-badge">In Stock</span>
-        )} */}
+        {isOutOfStock && (
+          <span className="stock-badge out-of-stock">Out of Stock</span>
+        )}
       </div>
 
       <div className="card-content">
@@ -57,10 +59,6 @@ export default function ProductCard({ product }: ProductCardProps) {
           <h3 className="product-title" title={product.name}>
             {product.name}
           </h3>
-          <div className="product-rating">
-            <span className="star">★</span>
-            <span className="rating-val">{(product.rating || 4.5).toFixed(1)}</span>
-          </div>
         </div>
 
         <p className="product-desc">{product.description}</p>
@@ -83,7 +81,7 @@ export default function ProductCard({ product }: ProductCardProps) {
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-whatsapp"
-              title="Order on WhatsApp"
+              title={isOutOfStock ? "Inquire on WhatsApp" : "Order on WhatsApp"}
             >
               <svg
                 className="whatsapp-icon"
